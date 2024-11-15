@@ -11,13 +11,25 @@ document.addEventListener('DOMContentLoaded', function() {
             message: document.getElementById('message').value
         };
 
-        // Aquí puedes agregar la lógica para enviar los datos al backend
-        console.log('Datos del formulario:', formData);
+        // Generar el JSON
+        const jsonData = JSON.stringify(formData, null, 2);
 
-        // Simulación de envío
-        alert('Correo enviado con éxito!');
+        // Mostrar el JSON en la consola
+        console.log('Datos del formulario en JSON:', jsonData);
 
-        // Resetear el formulario después de enviar
-        form.reset();
+        // Simular el envío de datos al servidor
+        sendDataToServer(jsonData);
     });
 });
+
+function sendDataToServer(jsonData) {
+    // Simular una petición al servidor
+    setTimeout(() => {
+        // Simular una respuesta exitosa del servidor
+        console.log('Datos enviados al servidor:', jsonData);
+        alert('Correo enviado con éxito!');
+        
+        // Resetear el formulario después de enviar
+        document.getElementById('emailForm').reset();
+    }, 1000); // Simular un retraso de 1 segundo
+}
