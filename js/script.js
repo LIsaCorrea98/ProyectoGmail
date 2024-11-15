@@ -12,24 +12,29 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Generar el JSON
-        const jsonData = JSON.stringify(formData, null, 2);
+        const jsonData = JSON.stringify(formData);
 
-        // Mostrar el JSON en la consola
-        console.log('Datos del formulario en JSON:', jsonData);
-
-        // Simular el envío de datos al servidor
+        // Enviar los datos al servidor
         sendDataToServer(jsonData);
     });
 });
 
 function sendDataToServer(jsonData) {
-    // Simular una petición al servidor
-    setTimeout(() => {
-        // Simular una respuesta exitosa del servidor
-        console.log('Datos enviados al servidor:', jsonData);
+    fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: jsonData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Respuesta del servidor:', data);
         alert('Correo enviado con éxito!');
-        
-        // Resetear el formulario después de enviar
         document.getElementById('emailForm').reset();
-    }, 1000); // Simular un retraso de 1 segundo
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error al enviar el correo. Por favor, intenta de nuevo.');
+    });
 }
